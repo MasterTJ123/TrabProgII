@@ -2,10 +2,7 @@
 #define SNAKE_H
 
 #include "raylib.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
+#include "ListaDinamicaEncadeada.h"
 
 #define LARGURA 660
 #define ALTURA 660
@@ -16,40 +13,55 @@
 #define SNAKE_COLOR YELLOW
 #define FOOD_COLOR BLUE
 
-typedef struct Bordas{
+typedef struct Bordas {
     Rectangle pos;
-}Bordas;
+} Bordas;
 
-typedef struct Body{
-    Rectangle pos;
+typedef struct Body {
+    Lista* snake;
     Color color;
     int direcao;
-}Body;
+} Body;
 
-typedef struct Food{
+typedef struct Food {
     Rectangle pos;
     Color color;
-}Food;
+} Food;
 
-typedef struct Jogo{
+typedef struct Jogo {
     Body body;
     Food food;
     Bordas bordas[4];
     double tempo;
     double cooldown;
-}Jogo;
+} Jogo;
 
 void IniciaBody(Jogo *j);
+
 void IniciaBordas(Jogo *j);
+
 void IniciaFood(Jogo *j);
+
 void IniciaJogo(Jogo *j);
-void DesenhaBody(Jogo *j);
-void DesenhaFood(Jogo *j);
-void DesenhaBordas(Jogo *j);
-void DesenhaJogo(Jogo *j);
+
+void DesenhaBody(const Jogo *j);
+
+void DesenhaFood(const Jogo *j);
+
+void DesenhaBordas(const Jogo *j);
+
+void DesenhaJogo(const Jogo *j);
+
 void AtualizaDirecao(Jogo *j);
-void AtualizaPosBody(Jogo *j);
+
+void AtualizaPosBody(const Jogo *j);
+
 void AtualizaRodada(Jogo *j);
-int ColisaoFood(Jogo *j);
+
+int ColisaoFood(const Jogo *j);
+
+int ColisaoBorda(const Jogo *j);
+
+int ColisaoSnake(const Jogo *j);
 
 #endif
